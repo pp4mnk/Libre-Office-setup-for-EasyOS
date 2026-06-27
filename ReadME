@@ -1,0 +1,145 @@
+These two scripts are **not intended to be final releases**. 
+They are simply the **very beginning of a much larger idea** that 
+I have been experimenting with.
+
+THE FINAL IS THE easyos-wordlike-setup.sh (EXPLAINED AT THE BOTTOM)
+
+
+The goal is not just to install a few fonts. The long-term objective
+
+ is to make LibreOffice behave as closely as possible to Microsoft Word, 
+ reducing one of the biggest barriers that Windows users face when trying 
+ Linux for the first time.
+
+The first script focuses on downloading and installing open-source font
+ replacements such as **Carlito** and **Caladea**, refreshing the font cache
+  and providing the recommended font substitutions for LibreOffice.
+
+The second script takes the idea a little further by also generating a simple
+ configuration guide with recommended LibreOffice settings, making it easier 
+ for users to configure Writer for improved compatibility with Microsoft Office documents.
+
+Neither script should be considered a finished product. They are **proofs of
+ concept**—the first steps towards what I hope will eventually become a 
+ complete "Windows-to-EasyOS migration assistant".
+
+My vision is much broader than simply installing fonts. I would like to 
+develop a utility capable of automatically preparing EasyOS for users coming from Windows by configuring LibreOffice, installing compatible fonts, applying sensible defaults, importing useful settings and generally making the transition as smooth as possible.
+
+If we want to attract more Windows users to the world of free software,
+ we need to reduce the learning curve as much as possible. I believe tools 
+ like these—even in their current experimental state—are a small step in that 
+ direction.
+
+So please don't see these scripts as finished utilities. Instead, think of 
+them as **the beginning of the beginning** of a project whose ultimate purpose
+ is to make EasyOS feel familiar, comfortable and welcoming for people taking 
+ their first steps into Linux.
+ 
+easyos-wordlike-setup.sh    easyos-wordlike-setup.sh      easyos-wordlike-setup.sh
+ 
+ This script is an early prototype designed to make LibreOffice Writer 
+ on EasyOS behave more like Microsoft Word. It is **not** a finished 
+ application, but rather the first step towards a future utility aimed 
+ at making the transition from Windows to EasyOS as smooth as possible.
+
+Here's what it currently does:
+
+### 1. Creates a dedicated font directory
+
+The script creates the following directory if it doesn't already exist:
+
+```text
+/usr/share/fonts/truetype/pp4mnk-lo-compat
+```
+
+This is where the compatibility fonts will be installed.
+
+### 2. Creates a temporary working directory
+
+It creates a temporary directory under `/tmp` where all downloaded files are 
+stored while the installation is in progress.
+
+Once the process is complete, this directory is automatically removed.
+
+### 3. Downloads open-source Microsoft-compatible fonts
+
+Instead of using Microsoft's proprietary fonts (which cannot be freely
+ redistributed), the script downloads their open-source metric-compatible 
+ replacements:
+
+* Carlito (compatible with Calibri)
+* Caladea (compatible with Cambria)
+
+These fonts are downloaded directly from the ONLYOFFICE project.
+
+### 4. Installs the fonts
+
+After downloading, all the TrueType font files (`.ttf`) are copied into
+ the system font directory created earlier.
+
+### 5. Refreshes the system font cache
+
+The script then runs:
+
+```bash
+fc-cache -fv
+```
+
+This rebuilds the system font cache so both EasyOS and LibreOffice can 
+immediately detect the newly installed fonts.
+
+### 6. Verifies the installation
+
+It checks whether the following compatibility fonts are available:
+
+* Carlito
+* Caladea
+* Liberation Sans
+* Liberation Serif
+* Liberation Mono
+
+This allows the user to confirm that the installation was successful.
+
+### 7. Generates a configuration guide
+
+Rather than modifying LibreOffice's internal configuration automatically, 
+the script creates a text guide in the user's home directory explaining the
+ recommended settings.
+
+The guide includes:
+
+* Enabling the font replacement table.
+* Recommended font substitutions:
+
+  * Calibri → Carlito
+  * Cambria → Caladea
+  * Arial → Liberation Sans
+  * Times New Roman → Liberation Serif
+  * Courier New → Liberation Mono
+* Saving documents by default as DOCX.
+* Suggested page layout settings.
+* Recommended default font and line spacing.
+
+### 8. Cleans up temporary files
+
+Finally, the temporary download directory is deleted, leaving only the 
+installed fonts and the generated guide.
+
+---
+
+### Current status
+
+This script should **not** be considered a finished utility. It is simply
+an experimental prototype and the first stage of a much larger project.
+
+My long-term goal is to create an EasyOS utility that automatically prepares
+ LibreOffice for Windows users by installing compatible fonts, applying
+  sensible defaults, improving Microsoft Office compatibility, and making
+   the transition to free software as easy as possible.
+
+In short, this script doesn't turn LibreOffice into Microsoft Word—but it 
+helps make Writer feel much more familiar to Windows users while remaining
+ entirely based on free and open-source software.
+
+
